@@ -50,3 +50,15 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+#######################################
+# ONS_bootloader (auxseg_null renamed)
+pic_serialport.X/.generated_files
+pic_serialport.X/build
+pic_serialport.X/debug
+pic_serialport.X/dist
+pic_serialport.X/nbproject/Makefile-*
+pic_serialport.X/nbproject/Package-*
+pic_serialport.X/nbproject/private
+
