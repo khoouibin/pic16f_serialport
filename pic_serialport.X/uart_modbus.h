@@ -12,9 +12,13 @@
 #define uart_rx_size          160
 #define uart_tx_size          160
 //#define modbus_SilentInt      175   // Silent Interval: 3/4 ms. 1cnt = 4.26usec.
-#define modbus_SilentInt      93   // Silent Interval: 3/4 ms. 1cnt = 8usec.
+//#define modbus_SilentInt      93   // Silent Interval: 3/4 ms. 1cnt = 8usec.
+#define modbus_SilentH     0xFD   // Silent Interval: 3/4 ms. 1cnt = 1usec.
+#define modbus_SilentL     0x11   // 0.75ms = 750 usec -> 65535 - 750 = 64785d = FD11
+
+
 #define modbus_resp_0ms       50    // 42.6usec.
-#define modbus_resp_1ms       125   // 1ms
+#define modbus_resp_1ms       1000   // 1ms
 #define modbus_resp_10ms      2340  // 10ms
 #define REPLY_PERIOD_MIN      10    // 10ms
 
@@ -177,20 +181,21 @@ Array_t;*/
 
 void UART1_modbus_init(void);
 void UART1_module_init(void);
-void Tmr2_module_init(void);
+void Tmr1_module_init(void);
 
-int set_modbus_mode( modbus_mode_t mode );
+char set_modbus_mode( modbus_mode_t mode );
 modbus_mode_t get_modbus_mode(void);
-int set_modbus_slave_addr( char addr );
+char set_modbus_slave_addr( char addr );
 char get_modbus_slave_addr(void);
 char get_modbus_resp_delay_ms(void);
 void set_modbus_resp_delay_ms( char delay_ms );
-int set_modbus_loopback_filter( modbus_loopback_t filter_typ );
-char get_modbus_loopback_filter(void);
+char set_modbus_loopback_filter( modbus_loopback_t filter_typ );
+modbus_loopback_t get_modbus_loopback_filter(void);
 
 //void tx_test(void);
-void tmr2_setting( waiting_typ_t type );
-unsigned char resp_delay_ms_trans_tmr2( char delay_ms );
+void tmr1_setting( waiting_typ_t type );
+void resp_delay_ms_trans_tmr1( char delay_ms,unsigned char* tmr1H,unsigned char* tmr1L);
+
 void reset_modbus_status_ptr(uart_modbus_status_t* status);
 
 void txBuf_load(unsigned char* txbuf, unsigned char leng );
