@@ -101,4 +101,3 @@ void Initial_Tmr0(void)
     TMR0 = TMR0_cnt;
     INTCONbits.TMR0IE = 1;
 }
-
